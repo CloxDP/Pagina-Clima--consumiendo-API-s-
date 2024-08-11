@@ -1,8 +1,10 @@
+@use 'variables' as v; 
+
 html {
     font-size: 62.5%;
     box-sizing: border-box;
-    background: rgb(0,212,255);
-    background: linear-gradient(48deg, rgba(0,212,255,1) 0%, rgba(165,246,255,1) 22%, rgba(184,247,232,1) 44%, rgba(204,245,161,1) 69%, rgba(246,243,11,1) 100%);
+    background: rgb(141,255,237);
+    background: linear-gradient(0deg, rgba(141,255,237,1) 0%, rgba(44,187,168,1) 33%, rgba(47,135,132,1) 67%, rgba(5,56,125,1) 100%);
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -11,7 +13,7 @@ html {
 }
   
 body {
-    // font-family: v.$fuentePrincipal;
+    font-family: v.$fuentePrincipal;
     font-size: 1.6rem;
 }
 .container {
@@ -26,4 +28,7 @@ ul {
     padding:0;
     list-style: none;
     margin: 0;
+}
+a{
+    text-decoration: none;
 }

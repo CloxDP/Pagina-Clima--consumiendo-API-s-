@@ -62,13 +62,21 @@ import '../components/scss/app.scss';
 		</ul> -->
 		<div class="topBar">
 			<div class="topBar__flex">
-				<!-- <picture>
-					<source srcset=".avif" type="image/avif">
-					<source srcset=".webp" type="image/webp">
-					<source srcset=".jpg" type="image/jpeg">
-					<img loading="lazy" decoding="async" src="../../public/img/tierra.png" alt="">
-				</picture> -->
-				<img src="/img/tierra.png" alt="">
+				<div class="topBar__image">
+					<img src="/img/tierra.png" alt="logo Page">
+				</div>
+				<div class="topBar__form">
+					<form action="">
+						<label for="search">Search for your City</label>
+						<select name="search">
+							<option value="option1">Option 1</option>
+                            <option value="option2">Option 2</option>
+                            <option value="option3">Option 3</option>
+						</select>
+						<button type="submit">Submit</button>
+					</form>
+				</div>
+
 			</div>
 		</div>
 		<main class="container">
