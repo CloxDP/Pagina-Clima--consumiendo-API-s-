@@ -1,0 +1,29 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    background: rgb(0,212,255);
+    background: linear-gradient(48deg, rgba(0,212,255,1) 0%, rgba(165,246,255,1) 22%, rgba(184,247,232,1) 44%, rgba(204,245,161,1) 69%, rgba(246,243,11,1) 100%);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+  
+body {
+    // font-family: v.$fuentePrincipal;
+    font-size: 1.6rem;
+}
+.container {
+    width: clamp(300px, 95%, 240rem);
+    margin: 0 auto;
+}
+img {
+    max-width: 100%;
+    display: block;
+}
+ul {
+    padding:0;
+    list-style: none;
+    margin: 0;
+}
