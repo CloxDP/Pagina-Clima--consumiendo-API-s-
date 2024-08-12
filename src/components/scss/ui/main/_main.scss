@@ -1,0 +1,12 @@
+@use '../../base/variables' as v; 
+@use '../../base/mixins' as m;
+
+.main{
+    margin: 2rem 0;
+    padding: 2rem;
+    min-width: 100%;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 2rem;
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+}

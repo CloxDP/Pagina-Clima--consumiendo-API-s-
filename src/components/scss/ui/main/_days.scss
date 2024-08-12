@@ -1,0 +1,17 @@
+@use '../../base/variables' as v; 
+@use '../../base/mixins' as m;
+
+.days{
+    margin: 2rem 0;
+    padding: 2rem;
+    min-width: 100%;
+
+    @include m.desktop {
+        @include m.grid(7,2rem);
+    }
+    &__title{
+        text-align: center;
+        font-weight: 700;
+        color: #fff;
+    }
+}
