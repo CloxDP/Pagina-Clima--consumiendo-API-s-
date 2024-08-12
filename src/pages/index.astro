@@ -9,7 +9,7 @@ import '../components/scss/app.scss';
 		<div class="topBar">
 			<div class="topBar__flex">
 				<div class="topBar__image">
-					<img src="/img/tierra.png" alt="logo Page">
+					<img src="img/tierra.png" alt="logo Page">
 				</div>
 				<form action="" class="topBar__form">
 					<label for="search">Search for your City</label>
@@ -18,23 +18,37 @@ import '../components/scss/app.scss';
 							<i class="fa-solid fa-magnifying-glass"></i>
 							<input list="cities" name="search" id="search" class="topBar__form--input" placeholder="Type to search...">
 							<datalist id="cities">
-								<option value="option1">Option 1</option>
-								<option value="option2">Option 2</option>
-								<option value="option3">Option 3</option>
 							</datalist>
 						</div>
-						<button type="submit" class="topBar__submit">Submit</button>
+						<button type="submit" class="topBar__submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
 					
 				</form>
 			</div>
 		</div>
-		<main class="container main">
-			<div class="main_information">
-
+		<main class="container main" id="main">
+			<div class="main__information ">
+				<p class="main__city" id="cityName"></p>
+				<p class="main__hour" id="cityHour"></p>
 			</div>
-			<div class="main__weather " id="main">
+			<div class="main__weather card" id="main">
+				<div class="card__flex">
+					<div class="card__information">
+						<p class="card__temperature"></p>
+						<p class="card__text"></p>
 
+					</div>
+					<div class="card__visuals">
+						<img src="" alt="logo image" class="card__image">
+						<div class="card__rain--probaility">
+							<img src="" alt="rain probability" class="card__rain">
+							<p class="card__probaility"></p>
+						</div>
+						
+
+					</div>
+				</div>
+				
 			</div>
 		</main>
 		<section class="container days">
@@ -62,6 +76,54 @@ import '../components/scss/app.scss';
 			</div>
 		</section>
 	</main>
+	<script>
+import { getDataEntryById } from "astro:content";
 
+		document.addEventListener('DOMContentLoaded', getUbication)
+
+
+		function getUbication(){
+			navigator.geolocation.getCurrentPosition(showUbication, showError);
+		}
+		
+
+		function showUbication(position) {
+			const lat = position.coords.latitude;
+			const lon = position.coords.longitude;
+			console.log(`Latitud: ${lat}, Longitud: ${lon}`);
+			getData(lat, lon);
+		}
+
+		function showError(error) {
+			switch(error.code) {
+				case error.PERMISSION_DENIED:
+				console.log("El usuario denegó la solicitud de geolocalización.");
+				break;
+				case error.POSITION_UNAVAILABLE:
+				console.log("La información de ubicación no está disponible.");
+				break;
+				case error.TIMEOUT:
+				console.log("La solicitud para obtener la ubicación ha caducado.");
+				break;
+				case error.UNKNOWN_ERROR:
+				console.log("Se ha producido un error desconocido.");
+				break;
+			}
+		}
+
+		// Llamar a la función para obtener la ubicación
+		function getData(lat,lon){
+			fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=388a98cce4230ec690b138a0004d0f41`).then(e=>e.ok?e.json():null)
+			.then(e=>{
+				let jsonObject=e;
+				showHTML(jsonObject);
+			}).catch(e=>{
+				console.log(`Error: ${e}`)
+			})
+		}
+		function showHTML(json){
+			console.log(json)
+		}
+	</script>
 
 </Layout>
