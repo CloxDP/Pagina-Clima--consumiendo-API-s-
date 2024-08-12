@@ -5,11 +5,8 @@
     border-radius: 2rem;
     padding: 2rem;
     &__rain{
-        // filter: invert(1) sepia(1) saturate(5) hue-rotate(180deg);
-        // background-color: blue;
-        fill: blue;
         path{
-            width: 20rem;
+            fill: rgba(5,56,125,1);
 
         }
 
