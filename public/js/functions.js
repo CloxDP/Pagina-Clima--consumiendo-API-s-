@@ -1,6 +1,5 @@
 import { mainDiv, cityInfo, now, months, daysOfWeek, daysDiv} from "./variables.js";
 import { Card } from "./class/Card.js";
-import { wednesday } from "../../dist/js/variables.js";
 
 export function getUbication(){
     navigator.geolocation.getCurrentPosition(showUbication, showError);
@@ -12,7 +11,6 @@ export function getUbication(){
 export function showUbication(position) {
 	const lat = position.coords.latitude;
 	const lon = position.coords.longitude;
-	console.log(`Latitud: ${lat}, Longitud: ${lon}`);
 	getData(lat, lon);
 }
 
