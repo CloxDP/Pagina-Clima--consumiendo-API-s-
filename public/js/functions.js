@@ -1,7 +1,10 @@
-
+import { mainDiv, cityInfo} from "./variables.js";
 
 export function getUbication(){
-	navigator.geolocation.getCurrentPosition(showUbication, showError);
+    navigator.geolocation.getCurrentPosition(showUbication, showError);
+    setInterval(()=>{
+        navigator.geolocation.getCurrentPosition(showUbication, showError);
+    }, 600000)
 }
 		
 
@@ -31,14 +34,48 @@ export function showError(error) {
 
 		// Llamar a la función para obtener la ubicación
 export function getData(lat,lon){
-	fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=388a98cce4230ec690b138a0004d0f41`).then(e=>e.ok?e.json():null)
+	fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=metric&appid=388a98cce4230ec690b138a0004d0f41`).then(e=>e.ok?e.json():null)
 	.then(e=>{
-		let jsonObject=e;
-		showHTML(jsonObject);
+		apiData(e);
 	}).catch(e=>{
 		console.log(`Error: ${e}`)
 	})
+    
 }
-export function showHTML(json){
-	console.log(json)
+
+//logica para desplegar los datos
+
+function apiData(api){
+    console.log(api)
+    let current=api['current'];
+    let daily=api['daily'];
+    let timeZone=api['timezone']
+    // console.log(current,daily);
+    mainWeather(current, daily[0], timeZone)
+}
+
+function mainWeather(waetherMoment, weatherDay, timeZone){
+    const now=new Date();
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const date=`${now.getDate()}/${now.getMonth()+1}/${now.getFullYear()}`;
+    const hour=`${now.getHours()}:${now.getMinutes()}`;
+    cityInfo.innerHTML=`
+        <span>${timeZone} ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}</span> Starting at ${hour} 
+    `;
+    console.log(waetherMoment, weatherDay, timeZone, date, hour);
+    console.log(mainDiv,cityInfo)
+
+    const informationDiv=mainDiv.querySelector('.card__information');
+    const temperature=waetherMoment['temp'];
+
+    const textAboutDay=weatherDay['summary'];
+    const minMaxTemperature=`${weatherDay['temp']['min']}°C • ${weatherDay['temp']['max']}°C`;
+    informationDiv.innerHTML=`
+        <p class="card__temperature">${temperature} °C</p>
+		<p class="card__text">${textAboutDay}</p>
+		<p class="card__min--max--temperature">${minMaxTemperature}</p>
+    `
 }

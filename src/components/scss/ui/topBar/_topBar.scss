@@ -8,7 +8,7 @@
     // background: rgb(141,255,237);
     // background: linear-gradient(0deg, rgba(141,255,237,1) 0%, rgba(44,187,168,1) 33%, rgba(47,135,132,1) 67%, rgba(5,56,125,1) 100%)
 
-
+    margin-top: 2rem;
     border-radius: 2rem;
     padding: 2rem;
     // border: 1px solid red;
@@ -58,11 +58,18 @@
         }
     }
     &__form--select-wrapper {
-        background-color: #fff;
+        background-color: rgba(255,255,255,0.05);
         border-radius: 1rem;
         padding: 1rem 2rem;
         i{
-            color: #000;
+            color: #fff;
+        }
+        input{
+            background-color: transparent;
+            color: #fff;
+            &::placeholder{
+                color: #fff;
+            }
         }
         
     }

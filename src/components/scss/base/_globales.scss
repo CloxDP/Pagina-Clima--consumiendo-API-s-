@@ -16,8 +16,8 @@ body {
     font-family: v.$fuentePrincipal;
     font-size: 1.6rem;
 }
-.container {
-    width: clamp(300px, 95%, 240rem);
+.container{
+    width: clamp(300px, 98%, 240rem);
     margin: 0 auto;
 }
 img {
@@ -31,4 +31,7 @@ ul {
 }
 a{
     text-decoration: none;
+}
+span{
+    font-weight: 700;
 }
