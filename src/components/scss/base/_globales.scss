@@ -1,18 +1,22 @@
 @use 'variables' as v; 
 
+html,body{
+    height: 100%;
+    margin: 0;
+}
 html {
     font-size: 62.5%;
     box-sizing: border-box;
-    background: rgb(141,255,237);
-    background: linear-gradient(0deg, rgba(141,255,237,1) 0%, rgba(44,187,168,1) 33%, rgba(47,135,132,1) 67%, rgba(5,56,125,1) 100%);
-    background-size: 100%;
-    background-repeat: no-repeat;
 }
 *, *:before, *:after {
     box-sizing: inherit;
 }
   
 body {
+    background: rgb(141,255,237);
+    background: linear-gradient(0deg, rgba(141,255,237,1) 0%, rgba(44,187,168,1) 33%, rgba(47,135,132,1) 67%, rgba(5,56,125,1) 100%);
+    background-size: 100%;
+    background-repeat: no-repeat;
     font-family: v.$fuentePrincipal;
     font-size: 1.6rem;
 }

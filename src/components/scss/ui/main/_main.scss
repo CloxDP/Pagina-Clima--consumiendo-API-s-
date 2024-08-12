@@ -8,10 +8,11 @@
     border-radius: 2rem;
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
+
+    -webkit-box-shadow: 13px 14px 81px -4px rgba(141,255,237,1);
+    -moz-box-shadow: 13px 14px 81px -4px rgba(141,255,237,1);
+    box-shadow: 13px 14px 81px -4px rgba(141,255,237,1);
     color: #fff;
-    .card__rain{
-        width: 10%;
-    }
     &__city--information{
         text-align: center;
         font-size: 2.5rem;
