@@ -10,4 +10,3 @@ export const daysDiv=document.querySelector('#days');
 export const form=document.querySelector('#form');
 export const dataList=document.querySelector('#cities');
 export const search=document.querySelector('#search')
-// export const moment = require('moment-timezone');

@@ -1,7 +1,7 @@
 export class UIDecoration{
-    constructor(id, hour=''){
+    constructor(id, hour){
         this.id=parseInt(id);
-        this.hour=parseInt(hour.split(':')[0])
+        this.hour = hour;
     }
     icon(){
         if (this.id >= 200 && this.id < 300) {

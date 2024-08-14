@@ -58,10 +58,10 @@ function apiData(api){
         }).catch(e=>{
             console.log(`Error: ${e}`)
         })
-    getWeatherForecast(dayName, daily,current);
+    getWeatherForecast(dayName, daily,current,timeZone);
 }
 
-function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
+function mainWeather(waetherMoment, weatherDay, timeZone, cityName){
     const currentTime = getHour(timeZone);
     cityInfo.innerHTML=`
         <h1>${cityName}</h1>
@@ -69,7 +69,7 @@ function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
     `;
     const informationDiv=mainDiv.querySelector('.card__information');
     const visualsDiv=mainDiv.querySelector('.card__visuals')
-    const logo= new UIDecoration(waetherMoment['weather'][0]['id'], currentTime)
+    const logo= new UIDecoration(waetherMoment['weather'][0]['id'], parseInt(currentTime.split(':')[0]))
     const logoURL=logo.icon();
     informationDiv.innerHTML=`
         <p class="card__temperature">${waetherMoment['temp']} °C</p>
@@ -86,19 +86,17 @@ function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
 }
 
 //funcion para detrminar el dia actual y los futuros dias con sus climas
-export function getWeatherForecast(day, weatherDays,current){
-    console.log(current)
+export function getWeatherForecast(day, weatherDays,current,timeZone){
+    const currentTime = getHour(timeZone);
     daysOfWeek.forEach(e=>{
         // console.log(e)
         let weekDay=daysDiv.querySelector(`.days__${e.toLowerCase()}`);
         if (day.toLowerCase()===weekDay.id.toString()){
-            console.log(current['weather'][0]['id'])
-            const logo= new UIDecoration(current['weather'][0]['id'])
+            const logo= new UIDecoration(current['weather'][0]['id'],parseInt(currentTime.split(':')[0]) )
             const logoURL=logo.icon();
-            const card= new Card(day,logoURL,'',weatherDays[0], now.getDate(), true)
+            const card= new Card(day,logoURL,weatherDays[0], now.getDate(), true)
             card.deployInHTML();
             logo.setVideo();
-            console.log(logo.id)
         }
     })
     let indice = daysOfWeek.indexOf(day);
@@ -109,15 +107,16 @@ export function getWeatherForecast(day, weatherDays,current){
     }
     // Crear un nuevo array que comience desde el día siguiente al eliminado
     newDaysOfWeek = newDaysOfWeek.slice(indice).concat(newDaysOfWeek.slice(0, indice));
-    getWeatherWeek(newDaysOfWeek, weatherDays)
+    getWeatherWeek(newDaysOfWeek, weatherDays,timeZone)
 }
 //funcion para rellenar el resto de dias
 
-export function getWeatherWeek(days, weatherDays){
+export function getWeatherWeek(days, weatherDays,timeZone){
+    const currentTime = getHour(timeZone);
     days.forEach((e,i)=>{
-        const logo= new UIDecoration(weatherDays[i+1]['weather'][0]['id'])
+        const logo= new UIDecoration(weatherDays[i+1]['weather'][0]['id'],parseInt(currentTime.split(':')[0]) )
         const logoURL=logo.icon();
-        const card= new Card(e,logoURL,'',weatherDays[i+1], now.getDate()+i+1)
+        const card= new Card(e,logoURL,weatherDays[i+1], now.getDate()+i+1)
         card.deployInHTML();
     })
 }
@@ -181,22 +180,17 @@ export function cleanHTML(div){
         div.removeChild(div.firstChild);
     }
 }
-
 //funcion temporal para ver las imagenes
 
-
-function getHour(zonaHoraria) {
-    // Crear una nueva fecha
-    const fecha = new Date();
-
+function getHour(timeZone) {
     // Formatear la fecha según la zona horaria especificada
-    const opciones = {
-        timeZone: zonaHoraria,
+    const options = {
+        timeZone: timeZone,
         hour: '2-digit',
         minute: '2-digit',
         hour12: false
     };
 
-    const horaEnZonaHoraria = new Intl.DateTimeFormat('es-CO', opciones).format(fecha);
-    return horaEnZonaHoraria;
+    const hourTimeZone = new Intl.DateTimeFormat('es-CO', options).format(now);
+    return hourTimeZone;
 }
