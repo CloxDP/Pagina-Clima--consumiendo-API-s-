@@ -1,17 +1,12 @@
 .topBar{
     background-color: rgba(255,255,255,0.05);
-    // background-color: #f9f9f9;
     backdrop-filter: blur(1rem);
     position: relative;
     -webkit-backdrop-filter: blur(1rem);
     box-shadow: 12px 12px 12pc rgba(0,0,0,0.1);
-    // background: rgb(141,255,237);
-    // background: linear-gradient(0deg, rgba(141,255,237,1) 0%, rgba(44,187,168,1) 33%, rgba(47,135,132,1) 67%, rgba(5,56,125,1) 100%)
-
     margin-top: 2rem;
     border-radius: 2rem;
     padding: 2rem;
-    // border: 1px solid red;
     &__flex{
        display: flex;
         justify-content: space-evenly;
@@ -37,10 +32,7 @@
         gap:2rem
     }
     &__form--select{
-        // padding: 1rem 0;
-        // border-radius:1rem ;
         border:none;
-        
     }
     &__submit{
         border-radius:1rem ;

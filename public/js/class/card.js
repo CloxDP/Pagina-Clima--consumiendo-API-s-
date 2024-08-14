@@ -1,12 +1,12 @@
 import { daysOfWeek, daysDiv,now } from "../variables.js";
 
 export class Card{
-    constructor(day, logo=null, backgorund=null, info=null, date, special=false){
+    constructor(day, logo=null, background=null, info=null, date, special=false){
         this.day=day;
         this.date=date;
         this.dayDiv=daysDiv.querySelector(`.days__${day.toLowerCase()}`);
         this.logo=logo;
-        this.backgorung=backgorund;
+        this.backgroung=background;
         this.info=info;
         this.special=special;
     }

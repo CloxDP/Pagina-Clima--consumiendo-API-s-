@@ -4,3 +4,4 @@ getUbication();
 // document.addEventListener('DOMContentLoaded', getUbication);
 form.addEventListener('input',searchFunction );
 form.addEventListener('submit', formSubmit);
+// images();
