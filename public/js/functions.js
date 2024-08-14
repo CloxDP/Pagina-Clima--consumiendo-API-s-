@@ -45,7 +45,6 @@ export function getData(lat,lon){
 
 //logica para desplegar los datos
 function apiData(api){
-     console.log(api)
     let current=api['current'];
     let daily=api['daily'];
     let timeZone=api['timezone']
@@ -59,7 +58,7 @@ function apiData(api){
         }).catch(e=>{
             console.log(`Error: ${e}`)
         })
-    getWeatherForecast(dayName, daily);
+    getWeatherForecast(dayName, daily,current);
 }
 
 function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
@@ -72,7 +71,6 @@ function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
     const visualsDiv=mainDiv.querySelector('.card__visuals')
     const logo= new UIDecoration(waetherMoment['weather'][0]['id'], currentTime)
     const logoURL=logo.icon();
-    console.log(weatherDay)
     informationDiv.innerHTML=`
         <p class="card__temperature">${waetherMoment['temp']} °C</p>
 		<p class="card__text">${weatherDay['summary']}</p>
@@ -88,15 +86,19 @@ function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
 }
 
 //funcion para detrminar el dia actual y los futuros dias con sus climas
-export function getWeatherForecast(day, weatherDays){
+export function getWeatherForecast(day, weatherDays,current){
+    console.log(current)
     daysOfWeek.forEach(e=>{
         // console.log(e)
         let weekDay=daysDiv.querySelector(`.days__${e.toLowerCase()}`);
         if (day.toLowerCase()===weekDay.id.toString()){
-            const logo= new UIDecoration(weatherDays[0]['weather'][0]['id'])
+            console.log(current['weather'][0]['id'])
+            const logo= new UIDecoration(current['weather'][0]['id'])
             const logoURL=logo.icon();
             const card= new Card(day,logoURL,'',weatherDays[0], now.getDate(), true)
             card.deployInHTML();
+            logo.setVideo();
+            console.log(logo.id)
         }
     })
     let indice = daysOfWeek.indexOf(day);
@@ -113,8 +115,6 @@ export function getWeatherForecast(day, weatherDays){
 
 export function getWeatherWeek(days, weatherDays){
     days.forEach((e,i)=>{
-    console.log(weatherDays[i+1])
-
         const logo= new UIDecoration(weatherDays[i+1]['weather'][0]['id'])
         const logoURL=logo.icon();
         const card= new Card(e,logoURL,'',weatherDays[i+1], now.getDate()+i+1)
