@@ -1,6 +1,5 @@
 ---
 import Layout from '../components/Astro/layouts/Layout.astro';
-// import '../components/scss/app.scss';
 ---
 
 <Layout title="Climate API">
@@ -9,18 +8,18 @@ import Layout from '../components/Astro/layouts/Layout.astro';
 				<div class="topBar__image">
 					<img src="img/tierra.png" alt="logo Page">
 				</div>
-				<form action="" class="topBar__form">
+				<form action="" class="topBar__form" id="form">
 					<label for="search">Search for your City</label>
 					<div class="topBar__form--content ">
 						<div class="topBar__form--select-wrapper">
 							<i class="fa-solid fa-magnifying-glass"></i>
 							<input list="cities" name="search" id="search" class="topBar__form--input" placeholder="Type to search...">
 							<datalist id="cities">
+								<!-- <option value="tilin">tilin</option> -->
 							</datalist>
 						</div>
 						<button type="submit" class="topBar__submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 					</div>
-					
 				</form>
 			</div>
 		</div>

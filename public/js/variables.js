@@ -6,4 +6,7 @@ export const months = [
         "July", "August", "September", "October", "November", "December"
 ];
 export const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-export const daysDiv=document.querySelector('#days')
+export const daysDiv=document.querySelector('#days');
+export const form=document.querySelector('#form');
+export const dataList=document.querySelector('#cities');
+export const search=document.querySelector('#search')

@@ -1,4 +1,4 @@
-import { mainDiv, cityInfo, now, months, daysOfWeek, daysDiv} from "./variables.js";
+import { mainDiv, cityInfo, now, months, daysOfWeek, daysDiv, dataList, search, form} from "./variables.js";
 import { Card } from "./class/Card.js";
 
 export function getUbication(){
@@ -36,7 +36,7 @@ export function getData(lat,lon){
 	fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=metric&appid=388a98cce4230ec690b138a0004d0f41`)
     .then(e=>e.ok?e.json():null)
 	.then(e=>{
-		apiData(e);
+        apiData(e)
 	}).catch(e=>{
 		console.log(`Error: ${e}`)
 	})
@@ -48,15 +48,24 @@ function apiData(api){
     let daily=api['daily'];
     let timeZone=api['timezone']
     const dayName = daysOfWeek[now.getDay()];
-    mainWeather(current, daily[0], timeZone);
+
+    fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${api['lat']}&lon=${api['lon']}&limit=1&appid=388a98cce4230ec690b138a0004d0f41`)
+        .then(i=>i.ok?i.json():null)
+	    .then(i=>{
+            const cityName=i[0]['name']
+            mainWeather(current, daily[0], timeZone, cityName); 
+        }).catch(e=>{
+            console.log(`Error: ${e}`)
+        })
     getWeatherForecast(dayName, daily);
 }
 
-function mainWeather(waetherMoment, weatherDay, timeZone){
+function mainWeather(waetherMoment, weatherDay, timeZone, cityName=''){
     let minutes=now.getMinutes().toString();
     minutes=minutes.length===1?`0${now.getMinutes()}`: minutes;
     const hour=`${now.getHours()}:${minutes}`;
     cityInfo.innerHTML=`
+        <h1>${cityName}</h1>
         <span>${timeZone} ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}</span> Starting at ${hour} 
     `;
     const informationDiv=mainDiv.querySelector('.card__information');
@@ -103,4 +112,64 @@ export function getWeatherWeek(days, weatherDays){
         const card= new Card(e,'','',weatherDays[i+1], now.getDate()+i+1)
         card.deployInHTML();
     })
+}
+//funcion para el buscador
+
+export function searchFunction(evt){
+    cleanHTML(dataList);
+    evt.preventDefault();
+    if(search.value){
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
+        .then(e=>e.ok?e.json():null)
+        .then(e=>{
+            citiesSearchOptions(e);
+        }).catch(e=>{
+            console.log(`Error: ${e}`)
+        })
+    }
+}
+//funcion que pone los options en el buscador
+
+export function citiesSearchOptions(citiesOBJ){
+    cleanHTML(dataList);
+    if (citiesOBJ!==null){
+        citiesOBJ.forEach(e=>{
+            const citie=`${e['name']} - ${e['country']}${e['state']===undefined?'':` - ${e['state']}`}`
+            const option=document.createElement('option');
+            option.classList.add('option');
+            option.value=citie;
+            option.textContent=citie;
+            dataList.appendChild(option);
+        })
+    }  
+} 
+//funcion para cualquier ciudad
+
+export function formSubmit(evt){
+    evt.preventDefault();
+    const parts = search.value.split(' - ');
+    const city = parts[0] || '';
+    const country = parts[1] || '';
+    const state = parts[2] || '';
+    if(city!=='' && country!==''){
+        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state==='undefined'?'':state},${country}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
+        .then(e=>e.ok?e.json():null)
+        .then(e=>{
+            for (let i of e) {
+                if(i['name']===city && i['country']===country){
+                    getData(i['lat'], i['lon']);
+                    form.reset();
+                    break;
+                }
+            };
+        }).catch(e=>{
+            console.log(`Error: ${e}`)
+        })
+    }
+}
+
+export function cleanHTML(div){
+    while(div.firstChild){
+        div.removeChild(div.firstChild);
+    }
 }

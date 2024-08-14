@@ -1,4 +1,6 @@
-import { getUbication } from "./functions.js";
-import { mainDiv } from "./variables.js";
-
-document.addEventListener('DOMContentLoaded', getUbication)
+import { formSubmit, getUbication , searchFunction} from "./functions.js";
+import { form } from "./variables.js";
+getUbication();
+// document.addEventListener('DOMContentLoaded', getUbication);
+form.addEventListener('input',searchFunction );
+form.addEventListener('submit', formSubmit);
