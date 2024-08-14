@@ -49,7 +49,7 @@ function apiData(api){
     let timeZone=api['timezone']
     const dayName = daysOfWeek[now.getDay()];
 
-    fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${api['lat']}&lon=${api['lon']}&limit=1&appid=388a98cce4230ec690b138a0004d0f41`)
+    fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${api['lat']}&lon=${api['lon']}&limit=1&appid=388a98cce4230ec690b138a0004d0f41`)
         .then(i=>i.ok?i.json():null)
 	    .then(i=>{
             const cityName=i[0]['name']
