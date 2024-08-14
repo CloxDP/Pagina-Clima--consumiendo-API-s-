@@ -119,7 +119,7 @@ export function searchFunction(evt){
     cleanHTML(dataList);
     evt.preventDefault();
     if(search.value){
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${search.value}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
         .then(e=>e.ok?e.json():null)
         .then(e=>{
             citiesSearchOptions(e);
@@ -152,7 +152,7 @@ export function formSubmit(evt){
     const country = parts[1] || '';
     const state = parts[2] || '';
     if(city!=='' && country!==''){
-        fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city},${state==='undefined'?'':state},${country}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
+        fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city},${state==='undefined'?'':state},${country}&limit=5&appid=388a98cce4230ec690b138a0004d0f41`)
         .then(e=>e.ok?e.json():null)
         .then(e=>{
             for (let i of e) {
